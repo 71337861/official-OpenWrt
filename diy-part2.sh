@@ -11,10 +11,16 @@
 #
 
 # Modify default IP
-#sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.1.253/g' package/base-files/files/bin/config_generate
 
-# Modify default theme
-#sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
+#sin-box latest version
+git clone --depth=1 https://github.com/Openwrt-Passwall/openwrt-passwall-packages /tmp/passwall-packages
+rm -rf feeds/packages/net/sing-box
+cp -rf /tmp/passwall-packages/sing-box feeds/packages/net/sing-box
+rm -rf /tmp/passwall-packages
 
-# Modify hostname
-#sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
+# Modify the revision number at the end of "Status -> Overview -> Firmware Version" in the web backend by appending the date (in Beijing Time)
+sed -i "s/%R/%R ($(TZ='Asia/Shanghai' date +"%Y.%m.%d"))/g" package/base-files/files/etc/openwrt_release
+
+# Modify the welcome screen banner for SSH logins
+sed -i "s/%D %V, %C/%D %V, %C (Built on $(TZ='Asia/Shanghai' date +"%Y.%m.%d"))/g" package/base-files/files/etc/banner
