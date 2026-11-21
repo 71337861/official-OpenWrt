@@ -128,7 +128,7 @@ jobs:
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        cd openwrt/bin/targets/*/*
+        cd openwrt/bin/targets/x86/64
         rm -rf packages
          BUILD_DATE=$(TZ='Asia/Shanghai' date +"%Y%m%d-%H%M")
          for file in *.img.gz; do
