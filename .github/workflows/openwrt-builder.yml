@@ -99,8 +99,8 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
         
     - name: SSH connection to Actions
-      uses: fengkx/sshx-action@v1
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh != 'false') || contains(github.event.head_commit.message, 'ssh')
+      run: curl -sSf https://sshx.io | sh -s run
       
     - name: Compile the firmware
       id: compile
